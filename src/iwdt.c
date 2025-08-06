@@ -94,7 +94,11 @@ iwdt_status_t iwdt_init(void)
     if ( false == gb_is_init )
     {
         // Configure IWDT
-        g_iwdt.Instance         = IWDG;
+        #if defined(IWDG1)
+            g_iwdt.Instance = IWDG1;
+        #elif defined(IWDG)
+            g_iwdt.Instance = IWDG;
+        #endif
         g_iwdt.Init.Prescaler   = IWDT_PRESCALER;
         g_iwdt.Init.Window      = 4095;                 // Window option is disabled
         g_iwdt.Init.Reload      = IWDT_CFG_PERIOD_MS;
